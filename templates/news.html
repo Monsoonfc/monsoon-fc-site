@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% set depth = "../" %}
+{% block title %}Noticias — Monsoon FC{% endblock %}
+{% block content %}
+
+<section class="page-header">
+  <div class="container">
+    <h1 class="page-title">NOTICIAS</h1>
+    <p class="page-subtitle">{{ articles|length }} publicacoes</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    {% if categories %}
+    <div class="filter-bar">
+      <button class="filter-btn active" data-filter="all">Todas</button>
+      {% for cat in categories %}
+      {% if cat.key != 'resultado' %}
+      <button class="filter-btn" data-filter="{{ cat.key }}">{{ cat.label }} ({{ cat.count }})</button>
+      {% endif %}
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    {% if articles %}
+    <div class="articles-list" id="articlesGrid">
+      {% for a in articles %}
+      <a href="{{ a.instagram_url }}" target="_blank" class="article-row" data-type="{{ a.category }}">
+        {% if a.thumbnail_web %}
+        <div class="article-row-thumb">
+          <img src="../../{{ a.thumbnail_web }}" alt="{{ a.title }}" loading="lazy">
+        </div>
+        {% endif %}
+        <div class="article-row-content">
+          <div class="article-row-meta">
+            <span class="article-category cat-{{ a.category }}">{{ a.category | replace('contratacao','Contratacao') | replace('resultado','Resultado') | replace('parceria','Parceria') | replace('renovacao','Renovacao') | replace('bastidores','Bastidores') | replace('torcida','Torcida') | replace('institucional','Institucional') | replace('especial','Especial') | replace('noticia','Noticia') }}</span>
+            <span class="article-row-date">{{ a.date }}</span>
+          </div>
+          <h3 class="article-row-title">{{ a.title }}</h3>
+          {% if a.subtitle %}
+          <p class="article-row-subtitle">{{ a.subtitle[:150] }}</p>
+          {% endif %}
+          <span class="article-read">Ler materia completa</span>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+    {% else %}
+    <div class="empty-state">
+      <p>Nenhuma noticia encontrada.</p>
+    </div>
+    {% endif %}
+  </div>
+</section>
+
+{% endblock %}

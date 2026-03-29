@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% set depth = "../" %}
+{% block title %}Resultados — Monsoon FC{% endblock %}
+{% block content %}
+
+<section class="page-header">
+  <div class="container">
+    <h1 class="page-title">Resultados</h1>
+    <p class="page-subtitle">{{ posts|length }} jogos registrados</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    {% if posts %}
+    <div class="results-list">
+      {% for post in posts %}
+      <a href="{{ post.instagram_url }}" target="_blank" class="result-row">
+        <div class="result-row-date">{{ post.date_display }}</div>
+        <div class="result-row-score">
+          <span class="score-num">{{ post.score.home }}</span>
+          <span class="score-sep">×</span>
+          <span class="score-num">{{ post.score.away }}</span>
+        </div>
+        <div class="result-row-caption">
+          {{ post.caption[:100] }}{% if post.caption|length > 100 %}…{% endif %}
+        </div>
+        {% if post.thumbnail_web %}
+        <div class="result-row-thumb">
+          <img src="../../{{ post.thumbnail_web }}" alt="Jogo {{ post.date_display }}" loading="lazy">
+        </div>
+        {% endif %}
+      </a>
+      {% endfor %}
+    </div>
+    {% else %}
+    <div class="empty-state">
+      <img src="../static/img/mascote.png" alt="Mascote" style="height:140px;opacity:.5">
+      <p>Nenhum resultado encontrado ainda.<br>Os placares são detectados automaticamente nas legendas dos posts.</p>
+    </div>
+    {% endif %}
+  </div>
+</section>
+
+{% endblock %}

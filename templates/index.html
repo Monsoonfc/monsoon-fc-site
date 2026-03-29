@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+{% block title %}Monsoon FC — Tubarão do Litoral{% endblock %}
+{% block content %}
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <img src="static/img/mascote.png" alt="Mascote Monsoon FC" class="hero-mascote">
+    <div class="hero-text">
+      <h1 class="hero-title">MONSOON FC</h1>
+      <p class="hero-tagline">{{ config.team_tagline }}</p>
+      <p class="hero-motto">{{ config.team_motto }}</p>
+      <div class="hero-badges">
+        <span class="badge">Campeao Gaucho Serie A2 2024</span>
+        <span class="badge">Serie B 2022 Invicto</span>
+      </div>
+      <div class="hero-actions">
+        <a href="feed/index.html" class="btn btn-primary">Ver Materias</a>
+        <a href="https://www.instagram.com/monsoon_fc_/" target="_blank" class="btn btn-outline">Instagram</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ULTIMOS RESULTADOS -->
+{% if results %}
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">Ultimos <span>Resultados</span></h2>
+      <a href="resultados/index.html" class="btn-outline-sm">Ver todos</a>
+    </div>
+    <div class="results-strip">
+      {% for a in results %}
+      <a href="{{ a.instagram_url }}" target="_blank" class="result-card">
+        {% if a.score %}
+        <div class="result-score">
+          <span class="result-home">{{ a.score.home }}</span>
+          <span class="result-sep">x</span>
+          <span class="result-away">{{ a.score.away }}</span>
+        </div>
+        {% endif %}
+        <p class="result-date">{{ a.date }}</p>
+        <h3 class="result-title">{{ a.title }}</h3>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<!-- ULTIMAS MATERIAS -->
+<section class="section section-dark">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">Ultimas <span>Materias</span></h2>
+      <a href="feed/index.html" class="btn-outline-sm">Ver todas</a>
+    </div>
+    {% if articles %}
+    <div class="articles-grid">
+      {% for a in articles %}
+      <a href="{{ a.instagram_url }}" target="_blank" class="article-card">
+        {% if a.thumbnail_web %}
+        <div class="article-thumb">
+          <img src="../{{ a.thumbnail_web }}" alt="{{ a.title }}" loading="lazy">
+          <span class="article-category cat-{{ a.category }}">{{ a.category | replace('contratacao','Contratacao') | replace('resultado','Resultado') | replace('parceria','Parceria') | replace('renovacao','Renovacao') | replace('bastidores','Bastidores') | replace('torcida','Torcida') | replace('institucional','Institucional') | replace('especial','Especial') | replace('noticia','Noticia') }}</span>
+        </div>
+        {% endif %}
+        <div class="article-body">
+          <p class="article-date">{{ a.date }}</p>
+          <h3 class="article-title">{{ a.title }}</h3>
+          {% if a.subtitle %}
+          <p class="article-subtitle">{{ a.subtitle[:100] }}{% if a.subtitle|length > 100 %}...{% endif %}</p>
+          {% endif %}
+          <div class="article-meta">
+            <span class="article-likes">{{ a.likes }}</span>
+            <span class="article-read">Ler mais</span>
+          </div>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+    {% else %}
+    <div class="empty-state">
+      <img src="static/img/mascote.png" alt="Mascote" style="height:120px;opacity:.5">
+      <p>Nenhuma materia ainda. Rode o script de coleta!</p>
+    </div>
+    {% endif %}
+  </div>
+</section>
+
+<!-- CATEGORIAS -->
+{% if categories %}
+<section class="section">
+  <div class="container">
+    <h2 class="section-title">Editorias</h2>
+    <div class="categories-grid">
+      {% for cat in categories %}
+      <div class="category-card">
+        <h3 class="category-name">{{ cat.label }}</h3>
+        <p class="category-count">{{ cat.count }} materias</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% endblock %}

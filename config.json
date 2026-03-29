@@ -1,0 +1,17 @@
+{
+  "instagram_username": "monsoon_fc_",
+  "team_name": "Monsoon FC",
+  "team_tagline": "Tubar\u00e3o do Litoral",
+  "team_motto": "Na elite do futebol gaúcho em menos de três anos",
+  "primary_color": "#0d0d0d",
+  "secondary_color": "#1a1a1a",
+  "accent_color": "#D4AF37",
+  "accent_light": "#e8c96e",
+  "logo_path": "static/img/logo.png",
+  "login_user": "monsoon_fc_",
+  "history_since": "2025-10-01",
+  "posts_per_page": 12,
+  "max_posts": 500,
+  "site_title": "Monsoon FC \u2014 Tubar\u00e3o do Litoral",
+  "site_url": "https://seu-usuario.github.io/monsoon-fc-site"
+}

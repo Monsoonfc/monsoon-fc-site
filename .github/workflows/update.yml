@@ -1,0 +1,71 @@
+name: Atualizar Site Monsoon FC
+
+on:
+  schedule:
+    - cron: '0 10 * * *'   # Todo dia às 07h00 BRT (10h UTC)
+  workflow_dispatch:         # Permite disparar manualmente pelo GitHub
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  update-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repositório
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Configurar Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Instalar dependências
+        run: pip install -r requirements.txt
+
+      - name: Coletar posts do Instagram
+        run: python scripts/fetch_instagram.py
+        env:
+          PYTHONUNBUFFERED: "1"
+
+      - name: Transformar posts em matérias
+        run: python scripts/transform_posts.py
+
+      - name: Gerar site estático
+        run: python scripts/build_site.py
+
+      - name: Verificar mudanças
+        id: changes
+        run: |
+          git add data/ media/ output/
+          if git diff --cached --quiet; then
+            echo "changed=false" >> $GITHUB_OUTPUT
+            echo "Nenhuma mudança detectada."
+          else
+            echo "changed=true" >> $GITHUB_OUTPUT
+            echo "Novos dados encontrados!"
+          fi
+
+      - name: Commit dos novos dados
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git commit -m "chore: atualizar conteúdo Instagram $(date -u +%Y-%m-%d)"
+          git push
+
+      - name: Deploy no GitHub Pages
+        if: steps.changes.outputs.changed == 'true'
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./output
+          publish_branch: gh-pages
+          commit_message: "deploy: site Monsoon FC $(date -u +%Y-%m-%d)"
