@@ -13,5 +13,13 @@
   "posts_per_page": 12,
   "max_posts": 500,
   "site_title": "Monsoon FC \u2014 Tubar\u00e3o do Litoral",
-  "site_url": "https://seu-usuario.github.io/monsoon-fc-site"
+  "site_url": "https://monsoonfc.github.io/monsoon-fc-site",
+  "partners": [
+    {"name": "Parceiro 1", "logo": "static/img/partners/parceiro1.png", "url": ""},
+    {"name": "Parceiro 2", "logo": "static/img/partners/parceiro2.png", "url": ""},
+    {"name": "Parceiro 3", "logo": "static/img/partners/parceiro3.png", "url": ""},
+    {"name": "Parceiro 4", "logo": "static/img/partners/parceiro4.png", "url": ""},
+    {"name": "Parceiro 5", "logo": "static/img/partners/parceiro5.png", "url": ""},
+    {"name": "Parceiro 6", "logo": "static/img/partners/parceiro6.png", "url": ""}
+  ]
 }

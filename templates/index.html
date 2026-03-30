@@ -90,6 +90,33 @@
   </div>
 </section>
 
+<!-- PARCEIROS -->
+{% if config.partners %}
+<section class="section partners-section">
+  <div class="container">
+    <h2 class="section-title">Nossos <span>Parceiros</span></h2>
+    <p class="partners-subtitle">Empresas e marcas que acreditam no Monsoon FC</p>
+    <div class="partners-grid">
+      {% for p in config.partners %}
+      <{% if p.url %}a href="{{ p.url }}" target="_blank"{% else %}div{% endif %} class="partner-card">
+        <div class="partner-logo-wrap">
+          <img src="{{ p.logo }}" alt="{{ p.name }}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="partner-placeholder" style="display:none">
+            <span>{{ p.name[:2] | upper }}</span>
+          </div>
+        </div>
+        <p class="partner-name">{{ p.name }}</p>
+      </{% if p.url %}a{% else %}div{% endif %}>
+      {% endfor %}
+    </div>
+    <div class="partners-cta">
+      <p>Quer ser parceiro do Monsoon FC?</p>
+      <a href="https://www.instagram.com/monsoon_fc_/" target="_blank" class="btn btn-outline">Entre em contato</a>
+    </div>
+  </div>
+</section>
+{% endif %}
+
 <!-- CATEGORIAS -->
 {% if categories %}
 <section class="section">
