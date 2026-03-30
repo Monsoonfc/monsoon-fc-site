@@ -136,6 +136,15 @@ def transform_post(post):
     if score and category == "resultado":
         title = f"Monsoon FC {score['home']} x {score['away']}"
 
+    # Convert absolute paths to relative (media/...)
+    thumb = post.get("thumbnail_web") or post.get("thumbnail") or ""
+    thumb = thumb.replace("\\", "/")
+    media_idx = thumb.find("/media/")
+    if media_idx != -1:
+        thumb = thumb[media_idx + 1:]  # "media/..."
+    elif thumb and not thumb.startswith("media/"):
+        thumb = ""
+
     article = {
         "id": post["post_id"],
         "shortcode": post["shortcode"],
@@ -146,7 +155,7 @@ def transform_post(post):
         "subtitle": subtitle,
         "body": body,
         "thumbnail": post.get("thumbnail"),
-        "thumbnail_web": post.get("thumbnail_web") or post.get("thumbnail"),
+        "thumbnail_web": thumb if thumb else None,
         "local_paths": post.get("local_paths", []),
         "score": score,
         "likes": post.get("likes", 0),

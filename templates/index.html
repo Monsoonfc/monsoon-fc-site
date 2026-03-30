@@ -63,7 +63,7 @@
       <a href="{{ a.instagram_url }}" target="_blank" class="article-card">
         {% if a.thumbnail_web %}
         <div class="article-thumb">
-          <img src="../{{ a.thumbnail_web }}" alt="{{ a.title }}" loading="lazy">
+          <img src="{{ a.thumbnail_web }}" alt="{{ a.title }}" loading="lazy">
           <span class="article-category cat-{{ a.category }}">{{ a.category | replace('contratacao','Contratacao') | replace('resultado','Resultado') | replace('parceria','Parceria') | replace('renovacao','Renovacao') | replace('bastidores','Bastidores') | replace('torcida','Torcida') | replace('institucional','Institucional') | replace('especial','Especial') | replace('noticia','Noticia') }}</span>
         </div>
         {% endif %}
