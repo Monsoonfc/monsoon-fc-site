@@ -16,7 +16,7 @@
   "site_url": "https://monsoonfc.github.io/monsoon-fc-site",
   "partners": [
     {"name": "NR Saude Seguros", "logo": "static/img/partners/nrsaude.png", "url": "https://nrsaude-seguros.com.br/"},
-    {"name": "Unirad Centro de Saude", "logo": "static/img/partners/unirad.png", "url": "https://clinicaunirad.com.br/"},
+    {"name": "Unirad Centro de Saude", "logo": "static/img/partners/unirad.jpg", "url": "https://clinicaunirad.com.br/"},
     {"name": "Rede Litoral RS", "logo": "static/img/partners/redelitoral.png", "url": "https://redelitoralrs.com/"},
     {"name": "LongLog Logistica", "logo": "static/img/partners/longlog.png", "url": "https://longlog.com.br/"},
     {"name": "NVK Imoveis", "logo": "static/img/partners/nvkimob.png", "url": "https://nvkimob.com.br/"},
