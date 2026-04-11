@@ -89,6 +89,7 @@ def fetch_posts(config, existing_posts):
         sleep=True,
         quiet=False,
         request_timeout=30,
+        max_connection_attempts=3,
         download_videos=True,
         download_video_thumbnails=True,
         download_geotags=False,
@@ -104,17 +105,22 @@ def fetch_posts(config, existing_posts):
             L.load_session_from_file(login_user)
             print(f"[OK] Sessao carregada para @{login_user}")
         except FileNotFoundError:
-            print(f"[WARN] Sessao nao encontrada para @{login_user}")
-            print(f"       Rode: instaloader -l {login_user}")
-            print(f"       para criar a sessao primeiro.")
-            sys.exit(1)
+            print(f"[INFO] Sessao nao encontrada para @{login_user}, tentando sem login...")
     else:
-        print("[INFO] Sem login. Se der erro 401/403, faca login primeiro:")
-        print("       instaloader -l SEU_USUARIO_INSTAGRAM")
+        print("[INFO] Sem login, tentando acesso publico...")
 
     print(f"[*] Buscando posts de @{username}...")
     try:
         profile = instaloader.Profile.from_username(L.context, username)
+    except instaloader.exceptions.ConnectionException as e:
+        if "429" in str(e) or "Too Many Requests" in str(e):
+            print(f"[ERRO] Instagram bloqueou requisicoes (rate limit 429).")
+            print("[DICA] A sessao pode ter expirado. Recrie com: instaloader -l SEU_USUARIO")
+            # Nao falha - usa posts existentes
+            return []
+        print(f"[ERRO] Ao acessar perfil: {e}")
+        print("[DICA] Tente fazer login: instaloader -l SEU_USUARIO_INSTAGRAM")
+        sys.exit(1)
     except Exception as e:
         print(f"[ERRO] Ao acessar perfil: {e}")
         print("[DICA] Tente fazer login: instaloader -l SEU_USUARIO_INSTAGRAM")

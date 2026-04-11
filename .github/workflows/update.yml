@@ -40,7 +40,7 @@ jobs:
           INSTA_USER: ${{ secrets.INSTA_USER }}
 
       - name: Coletar posts do Instagram
-        run: python scripts/fetch_instagram.py
+        run: timeout 300 python scripts/fetch_instagram.py || echo "Fetch falhou ou timeout, continuando com dados existentes..."
         env:
           PYTHONUNBUFFERED: "1"
           INSTA_USER: ${{ secrets.INSTA_USER }}
