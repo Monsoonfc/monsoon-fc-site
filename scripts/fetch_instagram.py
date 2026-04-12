@@ -129,6 +129,8 @@ def fetch_posts(config, existing_posts):
     print(f"[OK] Perfil encontrado: {profile.full_name} ({profile.followers} seguidores)")
 
     new_posts = []
+    existing_ids = {p["post_id"] for p in existing_posts}
+    consecutive_existing = 0
     MEDIA_DIR.mkdir(parents=True, exist_ok=True)
 
     for post in profile.get_posts():
@@ -141,10 +143,17 @@ def fetch_posts(config, existing_posts):
 
         post_ts = post_dt.timestamp()
 
-        # Modo incremental: para no primeiro post já salvo
-        if latest_ts and post_ts <= latest_ts:
-            print(f"[SKIP] Post {post.mediaid} ja salvo -- parando.")
-            break
+        # Pular posts já salvos (pode ter pinados no meio)
+        if str(post.mediaid) in existing_ids:
+            consecutive_existing += 1
+            print(f"[SKIP] Post {post.mediaid} ({post_dt.strftime('%d/%m/%Y')}) ja salvo.")
+            # Para depois de 5 posts seguidos ja salvos (passou dos novos)
+            if consecutive_existing >= 5:
+                print(f"[FIM] 5 posts seguidos ja salvos -- parando.")
+                break
+            continue
+
+        consecutive_existing = 0  # resetar contador
 
         print(f"[DL] Baixando {post.mediaid} ({post_dt.strftime('%d/%m/%Y')})")
 
