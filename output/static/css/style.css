@@ -133,43 +133,43 @@ img { display: block; max-width: 100%; }
 }
 .shark {
   position: absolute;
-  color: rgba(212, 175, 55, .12);
+  color: rgba(212, 175, 55, .25);
 }
 /* Nadando para direita */
 .shark.s1 {
-  width: 200px; top: 12%; left: -200px;
-  animation: swim-r 20s linear infinite;
+  width: 280px; top: 8%; left: -280px;
+  animation: swim-r 22s linear infinite;
 }
 .shark.s3 {
-  width: 140px; top: 60%; left: -140px;
-  color: rgba(212, 175, 55, .08);
-  animation: swim-r 26s linear infinite;
-  animation-delay: 6s;
+  width: 180px; top: 55%; left: -180px;
+  color: rgba(212, 175, 55, .15);
+  animation: swim-r 28s linear infinite;
+  animation-delay: 5s;
 }
 .shark.s5 {
-  width: 100px; top: 40%; left: -100px;
-  color: rgba(212, 175, 55, .15);
-  animation: swim-r 18s linear infinite;
-  animation-delay: 11s;
+  width: 140px; top: 35%; left: -140px;
+  color: rgba(212, 175, 55, .20);
+  animation: swim-r 19s linear infinite;
+  animation-delay: 12s;
 }
 /* Nadando para esquerda */
 .shark.s2 {
-  width: 170px; top: 75%; right: -170px;
-  color: rgba(212, 175, 55, .10);
-  animation: swim-l 22s linear infinite;
-  animation-delay: 3s;
+  width: 240px; top: 70%; right: -240px;
+  color: rgba(212, 175, 55, .18);
+  animation: swim-l 24s linear infinite;
+  animation-delay: 2s;
 }
 .shark.s4 {
-  width: 120px; top: 28%; right: -120px;
-  color: rgba(212, 175, 55, .14);
-  animation: swim-l 17s linear infinite;
+  width: 160px; top: 22%; right: -160px;
+  color: rgba(212, 175, 55, .22);
+  animation: swim-l 18s linear infinite;
   animation-delay: 8s;
 }
 .shark.s6 {
-  width: 160px; top: 50%; right: -160px;
-  color: rgba(212, 175, 55, .07);
-  animation: swim-l 24s linear infinite;
-  animation-delay: 14s;
+  width: 200px; top: 48%; right: -200px;
+  color: rgba(212, 175, 55, .12);
+  animation: swim-l 26s linear infinite;
+  animation-delay: 15s;
 }
 
 @keyframes swim-r {
