@@ -112,16 +112,24 @@ img { display: block; max-width: 100%; }
 
 .hero-bg {
   position: absolute; inset: 0;
-  background:
-    radial-gradient(ellipse 80% 60% at 65% 45%, rgba(212, 175, 55, .08) 0%, transparent 60%),
-    radial-gradient(ellipse 50% 80% at 20% 80%, rgba(212, 175, 55, .04) 0%, transparent 50%);
+  background: url('../img/hero.jpg') center center / cover no-repeat;
   pointer-events: none;
+}
+.hero-bg::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(10, 10, 10, .65) 0%,
+    rgba(10, 10, 10, .55) 40%,
+    rgba(10, 10, 10, .70) 70%,
+    var(--color-primary) 100%
+  );
 }
 
 .hero::after {
   content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 200px;
   background: linear-gradient(transparent, var(--color-primary));
-  pointer-events: none;
+  pointer-events: none; z-index: 1;
 }
 
 .hero-content {
