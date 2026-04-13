@@ -51,6 +51,9 @@ jobs:
       - name: Gerar site estático
         run: python scripts/build_site.py
 
+      - name: Coletar analytics de visitas
+        run: python scripts/collect_analytics.py
+
       - name: Verificar mudanças
         id: changes
         run: |

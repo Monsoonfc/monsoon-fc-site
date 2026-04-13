@@ -1,0 +1,54 @@
+name: Relatório Mensal de Visitas
+
+on:
+  schedule:
+    - cron: '0 12 1 * *'   # Dia 1 de cada mês às 12h UTC (9h BRT)
+  workflow_dispatch:         # Permite disparar manualmente
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  generate-report:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repositório
+        uses: actions/checkout@v4
+
+      - name: Configurar Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Gerar relatório
+        id: report
+        run: |
+          python scripts/generate_report.py
+          if [ -f data/last_report.md ]; then
+            echo "has_report=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_report=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Criar Issue com relatório
+        if: steps.report.outputs.has_report == 'true'
+        run: |
+          MONTH=$(date -u +"%B %Y")
+          gh issue create \
+            --title "📊 Relatório de Visitas — $MONTH" \
+            --body-file data/last_report.md \
+            --label "relatório"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Commit dados de analytics
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/analytics.json
+          if ! git diff --cached --quiet; then
+            git commit -m "chore: atualizar dados de analytics $(date -u +%Y-%m-%d)"
+            git push
+          fi
