@@ -2,7 +2,7 @@ name: Atualizar Site Monsoon FC
 
 on:
   schedule:
-    - cron: '0 10 * * *'   # Todo dia às 07h00 BRT (10h UTC)
+    - cron: '0 */4 * * *'   # A cada 4 horas (00h, 04h, 08h, 12h, 16h, 20h UTC)
   workflow_dispatch:         # Permite disparar manualmente pelo GitHub
 
 permissions:
