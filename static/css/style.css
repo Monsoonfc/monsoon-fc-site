@@ -124,6 +124,69 @@ img { display: block; max-width: 100%; }
   pointer-events: none;
 }
 
+/* Tubaroes flutuando */
+.hero-sharks {
+  position: absolute; inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+.shark {
+  position: absolute;
+  color: rgba(212, 175, 55, .12);
+}
+/* Nadando para direita */
+.shark.s1 {
+  width: 200px; top: 12%; left: -200px;
+  animation: swim-r 20s linear infinite;
+}
+.shark.s3 {
+  width: 140px; top: 60%; left: -140px;
+  color: rgba(212, 175, 55, .08);
+  animation: swim-r 26s linear infinite;
+  animation-delay: 6s;
+}
+.shark.s5 {
+  width: 100px; top: 40%; left: -100px;
+  color: rgba(212, 175, 55, .15);
+  animation: swim-r 18s linear infinite;
+  animation-delay: 11s;
+}
+/* Nadando para esquerda */
+.shark.s2 {
+  width: 170px; top: 75%; right: -170px;
+  color: rgba(212, 175, 55, .10);
+  animation: swim-l 22s linear infinite;
+  animation-delay: 3s;
+}
+.shark.s4 {
+  width: 120px; top: 28%; right: -120px;
+  color: rgba(212, 175, 55, .14);
+  animation: swim-l 17s linear infinite;
+  animation-delay: 8s;
+}
+.shark.s6 {
+  width: 160px; top: 50%; right: -160px;
+  color: rgba(212, 175, 55, .07);
+  animation: swim-l 24s linear infinite;
+  animation-delay: 14s;
+}
+
+@keyframes swim-r {
+  0%   { transform: translateX(0) translateY(0); }
+  25%  { transform: translateX(calc(25vw + 60px)) translateY(-12px); }
+  50%  { transform: translateX(calc(50vw + 120px)) translateY(8px); }
+  75%  { transform: translateX(calc(75vw + 180px)) translateY(-6px); }
+  100% { transform: translateX(calc(100vw + 280px)) translateY(0); }
+}
+@keyframes swim-l {
+  0%   { transform: translateX(0) translateY(0); }
+  25%  { transform: translateX(calc(-25vw - 60px)) translateY(10px); }
+  50%  { transform: translateX(calc(-50vw - 120px)) translateY(-8px); }
+  75%  { transform: translateX(calc(-75vw - 180px)) translateY(6px); }
+  100% { transform: translateX(calc(-100vw - 280px)) translateY(0); }
+}
+
 .hero-content {
   position: relative; z-index: 1;
   max-width: 1200px; width: 100%; margin: 0 auto;
