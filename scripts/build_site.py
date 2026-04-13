@@ -65,6 +65,8 @@ def partition_articles(articles):
     parcerias = [a for a in articles if a.get("category") == "parceria"]
     noticias = [a for a in articles if a.get("category") not in ("resultado",)]
 
+    total_likes = sum(a.get("likes", 0) for a in articles)
+
     return {
         "all": articles,
         "latest": articles[:6],
@@ -74,6 +76,7 @@ def partition_articles(articles):
         "parcerias": parcerias,
         "noticias": noticias,
         "categories": get_categories(articles),
+        "total_likes": total_likes,
     }
 
 
@@ -106,6 +109,7 @@ def render_pages(config, partitions, env, now_str):
             "config": config,
             "now": now_str,
             "total_articles": len(partitions["all"]),
+            "total_likes": partitions.get("total_likes", 0),
             **extra_ctx,
         }
         rendered = template.render(**ctx)
@@ -136,6 +140,7 @@ def main():
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
     env = Environment(loader=FileSystemLoader(str(TEMPLATES_DIR)), autoescape=True)
+    env.filters["format_number"] = lambda n: f"{n:,.0f}".replace(",", ".")
     now_str = datetime.now(timezone.utc).strftime("%d/%m/%Y %H:%M UTC")
 
     copy_assets()
