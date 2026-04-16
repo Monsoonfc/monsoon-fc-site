@@ -59,6 +59,10 @@ def categorize_post(caption, score):
     if score:
         return "resultado"
 
+    # "Nota oficial" e "comunicado" no inicio tem prioridade absoluta
+    if caption_lower.startswith("nota oficial") or caption_lower.startswith("comunicado"):
+        return "noticia"
+
     keywords = {
         "contratacao": [
             "anuncia", "contrata", "reforco", "chegada", "bem-vindo",
