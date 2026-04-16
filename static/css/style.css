@@ -493,19 +493,50 @@ img { display: block; max-width: 100%; }
 .article-row-subtitle { font-size: .88rem; color: #999; line-height: 1.5; font-weight: 300; }
 .article-row-excerpt { font-size: .82rem; color: #666; line-height: 1.6; font-weight: 300; flex: 1; }
 
-/* ══ CATEGORIES GRID ══ */
+/* ══ EDITORIAS GRID ══ */
+.editorias-section { background: var(--color-secondary); }
 .categories-grid {
-  display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-  gap: 14px; margin-top: 24px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 16px; margin-top: 24px;
 }
 .category-card {
-  background: var(--color-surface); border: 1px solid var(--color-border);
-  border-radius: var(--radius); padding: 20px; text-align: center;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 24px 16px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
   transition: all var(--transition);
+  cursor: pointer;
+  position: relative; overflow: hidden;
 }
-.category-card:hover { border-color: rgba(212,175,55,.4); box-shadow: var(--shadow-gold); }
-.category-name { font-family: var(--font-display); font-size: .95rem; color: var(--color-accent); font-weight: 600; letter-spacing: 1px; }
-.category-count { font-size: .75rem; color: var(--color-text-muted); margin-top: 4px; }
+.category-card::before {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(212,175,55,.06) 0%, transparent 70%);
+  opacity: 0; transition: opacity var(--transition);
+}
+.category-card:hover {
+  border-color: rgba(212,175,55,.5);
+  box-shadow: var(--shadow-gold);
+  transform: translateY(-3px);
+}
+.category-card:hover::before { opacity: 1; }
+.cat-icon { font-size: 1.8rem; line-height: 1; }
+.category-name {
+  font-family: var(--font-display); font-size: .9rem;
+  color: var(--color-accent); font-weight: 700;
+  letter-spacing: 1px; text-transform: uppercase;
+}
+.category-count { font-size: .75rem; color: var(--color-text-muted); }
+.category-arrow {
+  font-size: .8rem; color: rgba(212,175,55,.4);
+  transition: all var(--transition); margin-top: 4px;
+}
+.category-card:hover .category-arrow {
+  color: var(--color-accent); transform: translateX(4px);
+}
 
 /* ══ EMPTY STATE ══ */
 .empty-state {

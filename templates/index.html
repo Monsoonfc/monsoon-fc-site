@@ -23,26 +23,33 @@
   </div>
 </section>
 
-<!-- ULTIMOS RESULTADOS -->
-{% if results %}
-<section class="section">
+<!-- EDITORIAS -->
+{% if categories %}
+<section class="section editorias-section">
   <div class="container">
     <div class="section-header">
-      <h2 class="section-title">Ultimos <span>Resultados</span></h2>
-      <a href="resultados/index.html" class="btn-outline-sm">Ver todos</a>
+      <h2 class="section-title">Editorias</h2>
+      <a href="feed/index.html" class="btn-outline-sm">Ver todas</a>
     </div>
-    <div class="results-strip">
-      {% for a in results %}
-      <a href="{{ a.instagram_url }}" target="_blank" class="result-card">
-        {% if a.score %}
-        <div class="result-score">
-          <span class="result-home">{{ a.score.home }}</span>
-          <span class="result-sep">x</span>
-          <span class="result-away">{{ a.score.away }}</span>
-        </div>
-        {% endif %}
-        <p class="result-date">{{ a.date }}</p>
-        <h3 class="result-title">{{ a.title }}</h3>
+    <div class="categories-grid">
+      {% for cat in categories %}
+      <a href="feed/index.html#{{ cat.key }}" class="category-card cat-link-{{ cat.key }}">
+        <span class="cat-icon">
+          {% if cat.key == 'noticia' %}📰
+          {% elif cat.key == 'contratacao' %}⚽
+          {% elif cat.key == 'resultado' %}🏆
+          {% elif cat.key == 'parceria' %}🤝
+          {% elif cat.key == 'renovacao' %}🔄
+          {% elif cat.key == 'bastidores' %}🎬
+          {% elif cat.key == 'torcida' %}👊
+          {% elif cat.key == 'institucional' %}📋
+          {% elif cat.key == 'especial' %}⭐
+          {% else %}📌
+          {% endif %}
+        </span>
+        <h3 class="category-name">{{ cat.label }}</h3>
+        <p class="category-count">{{ cat.count }} materia{% if cat.count != 1 %}s{% endif %}</p>
+        <span class="category-arrow">→</span>
       </a>
       {% endfor %}
     </div>
@@ -90,6 +97,33 @@
   </div>
 </section>
 
+<!-- ULTIMOS RESULTADOS -->
+{% if results %}
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">Ultimos <span>Resultados</span></h2>
+      <a href="resultados/index.html" class="btn-outline-sm">Ver todos</a>
+    </div>
+    <div class="results-strip">
+      {% for a in results %}
+      <a href="{{ a.instagram_url }}" target="_blank" class="result-card">
+        {% if a.score %}
+        <div class="result-score">
+          <span class="result-home">{{ a.score.home }}</span>
+          <span class="result-sep">x</span>
+          <span class="result-away">{{ a.score.away }}</span>
+        </div>
+        {% endif %}
+        <p class="result-date">{{ a.date }}</p>
+        <h3 class="result-title">{{ a.title }}</h3>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
 <!-- PARCEIROS -->
 {% if config.partners %}
 <section class="section partners-section">
@@ -112,23 +146,6 @@
     <div class="partners-cta">
       <p>Quer ser parceiro do Monsoon FC?</p>
       <a href="https://www.instagram.com/monsoon_fc_/" target="_blank" class="btn btn-outline">Entre em contato</a>
-    </div>
-  </div>
-</section>
-{% endif %}
-
-<!-- CATEGORIAS -->
-{% if categories %}
-<section class="section">
-  <div class="container">
-    <h2 class="section-title">Editorias</h2>
-    <div class="categories-grid">
-      {% for cat in categories %}
-      <div class="category-card">
-        <h3 class="category-name">{{ cat.label }}</h3>
-        <p class="category-count">{{ cat.count }} materias</p>
-      </div>
-      {% endfor %}
     </div>
   </div>
 </section>
