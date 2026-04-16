@@ -52,15 +52,27 @@ def extract_subtitle(caption_clean, title):
     return None
 
 
-def categorize_post(caption, score):
+# Categorias fixas por post ID — nunca serao sobrescritas pela IA
+CATEGORY_OVERRIDES = {
+    "3876681223674913450": "noticia",   # NOTA OFICIAL 16/04/2026
+}
+
+
+def categorize_post(caption, score, post_id=None):
     """Categoriza o post automaticamente."""
-    caption_lower = caption.lower()
+    # Override manual tem prioridade maxima
+    if post_id and str(post_id) in CATEGORY_OVERRIDES:
+        return CATEGORY_OVERRIDES[str(post_id)]
+
+    caption_lower = caption.lower().strip()
 
     if score:
         return "resultado"
 
-    # "Nota oficial" e "comunicado" no inicio tem prioridade absoluta
-    if caption_lower.startswith("nota oficial") or caption_lower.startswith("comunicado"):
+    # "Nota oficial" e "comunicado" sao sempre noticias
+    if (caption_lower.startswith("nota oficial") or
+            caption_lower.startswith("comunicado") or
+            "nota oficial" in caption_lower[:50]):
         return "noticia"
 
     keywords = {
@@ -131,7 +143,7 @@ def transform_post(post):
         return None
 
     score = post.get("score")
-    category = categorize_post(caption, score)
+    category = categorize_post(caption, score, post_id=post.get("post_id"))
     title = extract_title(caption_clean)
     subtitle = extract_subtitle(caption_clean, title)
     body = generate_body(caption_clean, category)
