@@ -186,6 +186,18 @@ def main():
     with open(DATA_PATH, encoding="utf-8") as f:
         posts = json.load(f)
 
+    # Shortcodes do Instagram (posts reais)
+    instagram_shortcodes = {p["shortcode"] for p in posts if p.get("shortcode")}
+
+    # Carregar entradas manuais (shortcodes que NAO existem no Instagram)
+    manual_entries = []
+    if ARTICLES_PATH.exists():
+        with open(ARTICLES_PATH, encoding="utf-8") as f:
+            existing = json.load(f)
+        manual_entries = [a for a in existing if a.get("shortcode") not in instagram_shortcodes]
+        if manual_entries:
+            print(f"[OK] {len(manual_entries)} entradas manuais preservadas")
+
     articles = []
     categories_count = {}
 
@@ -196,11 +208,15 @@ def main():
             cat = article["category"]
             categories_count[cat] = categories_count.get(cat, 0) + 1
 
+    # Combinar e ordenar por timestamp
+    all_articles = manual_entries + articles
+    all_articles.sort(key=lambda a: a.get("timestamp", 0), reverse=True)
+
     ARTICLES_PATH.parent.mkdir(exist_ok=True)
     with open(ARTICLES_PATH, "w", encoding="utf-8") as f:
-        json.dump(articles, f, ensure_ascii=False, indent=2)
+        json.dump(all_articles, f, ensure_ascii=False, indent=2)
 
-    print(f"[OK] {len(articles)} materias geradas de {len(posts)} posts")
+    print(f"[OK] {len(all_articles)} materias totais ({len(articles)} Instagram + {len(manual_entries)} manuais)")
     print(f"     Categorias:")
     for cat, count in sorted(categories_count.items(), key=lambda x: -x[1]):
         print(f"       {cat}: {count}")
