@@ -146,6 +146,7 @@ def render_individual_articles(config, articles, env, now_str):
             category_label=category_label,
             related=related,
             total_articles=len(articles),
+            depth="../",
         )
 
         out_path = out_dir / f"{shortcode}.html"
