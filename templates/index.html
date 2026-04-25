@@ -67,7 +67,7 @@
     {% if articles %}
     <div class="articles-grid">
       {% for a in articles %}
-      <a href="{{ a.instagram_url }}" target="_blank" class="article-card">
+      <a href="noticias/{{ a.shortcode }}.html" class="article-card">
         {% if a.thumbnail_web %}
         <div class="article-thumb">
           <img src="{{ a.thumbnail_web }}" alt="{{ a.title }}" loading="lazy">
@@ -107,7 +107,7 @@
     </div>
     <div class="results-strip">
       {% for a in results %}
-      <a href="{{ a.instagram_url }}" target="_blank" class="result-card">
+      <a href="noticias/{{ a.shortcode }}.html" class="result-card">
         {% if a.score %}
         <div class="result-score">
           <span class="result-home">{{ a.score.home }}</span>
