@@ -1,87 +1,81 @@
 {% extends "base.html" %}
 
-{% block title %}{{ article.title }} — Monsoon FC{% endblock %}
+{% block title %}{{ article.title }} - Monsoon FC{% endblock %}
 
 {% block extra_head %}
 <meta property="og:title" content="{{ article.title }}">
 <meta property="og:description" content="{{ article.subtitle }}">
-{% if article.thumbnail_web %}<meta property="og:image" content="../{{ article.thumbnail_web }}">{% endif %}
+{% if article.thumbnail_web %}<meta property="og:image" content="{{ depth }}{{ article.thumbnail_web }}">{% endif %}
 <meta property="og:type" content="article">
 <style>
-.article-page{max-width:900px;margin:0 auto;padding:2rem 1.5rem 4rem}
-.article-back{display:inline-flex;align-items:center;gap:.5rem;color:var(--accent-color,#D4AF37);text-decoration:none;font-size:.9rem;font-weight:500;margin-bottom:1.5rem;transition:opacity .2s}
-.article-back:hover{opacity:.7}
-.article-category{display:inline-block;background:var(--accent-color,#D4AF37);color:#000;padding:.3rem .8rem;border-radius:6px;font-size:.75rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;margin-bottom:1rem}
-.article-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,5vw,3.5rem);line-height:1.1;color:#fff;margin-bottom:.75rem;letter-spacing:.02em}
-.article-subtitle{font-size:1.15rem;color:#aaa;line-height:1.5;margin-bottom:1.5rem;font-weight:400}
-.article-meta{display:flex;align-items:center;gap:1rem;color:#888;font-size:.85rem;padding-bottom:1.5rem;margin-bottom:2rem;border-bottom:1px solid rgba(255,255,255,.08)}
-.article-meta-item{display:flex;align-items:center;gap:.4rem}
-.article-banner{width:100%;aspect-ratio:1/1;max-height:600px;object-fit:cover;border-radius:12px;margin-bottom:2rem;background:#1a1a1a}
-.article-body{font-size:1.05rem;line-height:1.8;color:#ddd;margin-bottom:3rem}
-.article-body p{margin-bottom:1.25rem}
-.article-instagram-cta{background:linear-gradient(135deg,rgba(212,175,55,.1),rgba(212,175,55,.03));border:1px solid rgba(212,175,55,.3);border-radius:12px;padding:1.5rem;text-align:center;margin-bottom:3rem}
-.article-instagram-cta p{color:#aaa;font-size:.95rem;margin-bottom:1rem}
-.article-instagram-cta a{display:inline-flex;align-items:center;gap:.5rem;background:var(--accent-color,#D4AF37);color:#000;padding:.7rem 1.5rem;border-radius:8px;text-decoration:none;font-weight:700;font-size:.9rem;transition:transform .15s,background .2s}
-.article-instagram-cta a:hover{transform:translateY(-2px);background:#e2c370}
-.related-section{padding-top:2rem;border-top:1px solid rgba(255,255,255,.08)}
-.related-title{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;color:var(--accent-color,#D4AF37);margin-bottom:1.5rem;letter-spacing:.05em}
-.related-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1rem}
-.related-card{background:#111;border:1px solid #222;border-radius:10px;overflow:hidden;text-decoration:none;color:inherit;transition:border-color .25s,transform .25s;display:flex;flex-direction:column}
-.related-card:hover{border-color:var(--accent-color,#D4AF37);transform:translateY(-3px)}
-.related-img{aspect-ratio:1/1;background:#1a1a1a;overflow:hidden}
+.article-wrap{max-width:780px;margin:2.5rem auto 4rem;padding:0 1.5rem;color:#e8e8e8}
+.article-back{display:inline-flex;align-items:center;gap:.5rem;color:#D4AF37;text-decoration:none;font-size:.85rem;font-weight:500;margin-bottom:1.5rem;opacity:.85}
+.article-back:hover{opacity:1}
+.article-cat{display:inline-block;background:#D4AF37;color:#000;padding:.25rem .7rem;border-radius:4px;font-size:.7rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;margin-bottom:1rem}
+.article-title{font-family:'Bebas Neue','Arial Black',sans-serif;font-size:clamp(1.9rem,4.5vw,3rem);line-height:1.05;color:#fff;margin-bottom:.85rem;letter-spacing:.01em;font-weight:400}
+.article-lead{font-size:1.15rem;color:#bbb;line-height:1.55;margin-bottom:1.25rem}
+.article-meta{display:flex;align-items:center;gap:1.25rem;color:#777;font-size:.82rem;padding-bottom:1.25rem;margin-bottom:1.75rem;border-bottom:1px solid rgba(255,255,255,.08);flex-wrap:wrap}
+.article-banner{width:100%;max-height:480px;object-fit:cover;border-radius:10px;margin-bottom:2rem;background:#1a1a1a;display:block}
+.article-body{font-size:1.04rem;line-height:1.75;color:#d8d8d8}
+.article-body p{margin-bottom:1.15rem}
+.article-body p:first-of-type::first-letter{font-size:3.2rem;font-weight:700;float:left;line-height:.9;padding:.3rem .55rem .15rem 0;color:#D4AF37;font-family:'Bebas Neue',sans-serif}
+.cta-instagram{margin:2.5rem 0;padding:1.25rem 1.5rem;background:rgba(212,175,55,.06);border:1px solid rgba(212,175,55,.2);border-radius:10px;display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
+.cta-instagram-text{flex:1;min-width:200px;color:#aaa;font-size:.9rem}
+.cta-instagram a{display:inline-flex;align-items:center;gap:.4rem;background:#D4AF37;color:#000;padding:.55rem 1.1rem;border-radius:6px;text-decoration:none;font-weight:700;font-size:.85rem}
+.related{margin-top:3.5rem;padding-top:2rem;border-top:1px solid rgba(255,255,255,.08)}
+.related-title{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;color:#D4AF37;margin-bottom:1.25rem;letter-spacing:.05em}
+.related-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:.85rem}
+.related-card{background:#101010;border:1px solid #1f1f1f;border-radius:8px;overflow:hidden;text-decoration:none;color:inherit;display:flex;flex-direction:column}
+.related-card:hover{border-color:#D4AF37}
+.related-img{aspect-ratio:16/10;background:#1a1a1a;overflow:hidden}
 .related-img img{width:100%;height:100%;object-fit:cover}
-.related-body{padding:1rem;flex:1;display:flex;flex-direction:column;gap:.4rem}
-.related-cat{font-size:.7rem;color:var(--accent-color,#D4AF37);font-weight:700;letter-spacing:.05em;text-transform:uppercase}
-.related-card-title{font-size:.95rem;font-weight:600;color:#fff;line-height:1.3}
-.related-date{font-size:.75rem;color:#888;margin-top:auto}
-@media(max-width:600px){.article-page{padding:1rem 1rem 3rem}.article-title{font-size:2rem}}
+.related-body{padding:.85rem 1rem;flex:1;display:flex;flex-direction:column;gap:.3rem}
+.related-cat{font-size:.65rem;color:#D4AF37;font-weight:700;letter-spacing:.05em;text-transform:uppercase}
+.related-card-title{font-size:.88rem;font-weight:600;color:#eee;line-height:1.3}
+.related-date{font-size:.7rem;color:#666;margin-top:auto}
+@media(max-width:600px){.article-wrap{margin:1.5rem auto 3rem;padding:0 1rem}.article-banner{max-height:340px}}
 </style>
 {% endblock %}
 
 {% block content %}
-<article class="article-page">
-  <a href="../noticias/index.html" class="article-back">← Voltar para Noticias</a>
-
-  <span class="article-category">{{ category_label }}</span>
-
+<article class="article-wrap">
+  <a href="{{ depth }}noticias/index.html" class="article-back">&larr; Voltar para Noticias</a>
+  <span class="article-cat">{{ category_label }}</span>
   <h1 class="article-title">{{ article.title }}</h1>
-
   {% if article.subtitle and article.subtitle != article.title %}
-  <p class="article-subtitle">{{ article.subtitle }}</p>
+  <p class="article-lead">{{ article.subtitle }}</p>
   {% endif %}
-
   <div class="article-meta">
-    <span class="article-meta-item">📅 {{ article.date }}</span>
-    {% if article.likes %}<span class="article-meta-item">❤️ {{ article.likes | format_number }} curtidas</span>{% endif %}
+    <span>{{ article.date }}</span>
+    {% if article.likes %}<span>{{ article.likes | format_number }} curtidas</span>{% endif %}
+    <span>Monsoon FC</span>
   </div>
-
   {% if article.thumbnail_web %}
-  <img src="../{{ article.thumbnail_web }}" alt="{{ article.title }}" class="article-banner" onerror="this.style.display='none'">
+  <img src="{{ depth }}{{ article.thumbnail_web }}" alt="{{ article.title }}" class="article-banner" onerror="this.style.display='none'">
   {% endif %}
-
   <div class="article-body">
-    {% if article.body %}
+    {% if article.body_html %}
+      {{ article.body_html | safe }}
+    {% elif article.body %}
       {% for paragraph in article.body.split('\n\n') %}
         {% if paragraph.strip() %}<p>{{ paragraph.strip() }}</p>{% endif %}
       {% endfor %}
     {% endif %}
   </div>
-
   {% if article.instagram_url %}
-  <div class="article-instagram-cta">
-    <p>Veja a publicação original no Instagram do Monsoon FC</p>
-    <a href="{{ article.instagram_url }}" target="_blank" rel="noopener">📸 Ver no Instagram</a>
+  <div class="cta-instagram">
+    <div class="cta-instagram-text">Veja a publicacao original com fotos e comentarios</div>
+    <a href="{{ article.instagram_url }}" target="_blank" rel="noopener">Ver no Instagram</a>
   </div>
   {% endif %}
-
   {% if related %}
-  <section class="related-section">
+  <section class="related">
     <h2 class="related-title">VEJA TAMBEM</h2>
     <div class="related-grid">
       {% for rel in related %}
       <a href="{{ rel.shortcode }}.html" class="related-card">
         <div class="related-img">
-          {% if rel.thumbnail_web %}<img src="../{{ rel.thumbnail_web }}" alt="{{ rel.title }}" onerror="this.style.display='none'">{% endif %}
+          {% if rel.thumbnail_web %}<img src="{{ depth }}{{ rel.thumbnail_web }}" alt="{{ rel.title }}" onerror="this.style.display='none'">{% endif %}
         </div>
         <div class="related-body">
           <span class="related-cat">{{ rel.category }}</span>
