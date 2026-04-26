@@ -8,17 +8,19 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --color-primary: #0a0a0a;
-  --color-secondary: #111111;
-  --color-surface: #161616;
-  --color-accent: #D4AF37;
-  --color-accent-light: #e8c96e;
-  --color-accent-dark: #a88a20;
-  --color-accent-glow: rgba(212, 175, 55, .15);
-  --color-text: #f5f5f5;
-  --color-text-muted: #777;
-  --color-border: rgba(212, 175, 55, .15);
-  --color-glass: rgba(15, 15, 15, .75);
+  --color-primary: #f5f1e8;
+  --color-secondary: #ffffff;
+  --color-surface: #faf6ec;
+  --color-accent: #1a1a1a;
+  --color-accent-light: #2d2d2d;
+  --color-accent-dark: #000000;
+  --color-accent-glow: rgba(26, 26, 26, .08);
+  --color-text: #1a1a1a;
+  --color-text-muted: #6b6b6b;
+  --color-border: rgba(26, 26, 26, .12);
+  --color-glass: rgba(245, 241, 232, .92);
+  --color-gold: #b8941f;
+  --color-gold-soft: rgba(184, 148, 31, .12);
   --radius: 12px;
   --radius-lg: 20px;
   --shadow: 0 8px 32px rgba(0, 0, 0, .5);
