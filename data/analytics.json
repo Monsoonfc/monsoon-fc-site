@@ -96,5 +96,14 @@
       "visits_today": 1
     }
   ],
-  "monthly_reports": []
+  "monthly_reports": [
+    {
+      "date": "2026-05-01",
+      "period_start": "2026-04-13",
+      "period_end": "2026-05-01",
+      "total_visits": 19,
+      "avg_daily": 1,
+      "days_tracked": 19
+    }
+  ]
 }
