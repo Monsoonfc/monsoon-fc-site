@@ -484,49 +484,6 @@
     "media_type": "video"
   },
   {
-    "id": "3847949618940829529",
-    "shortcode": "DVmqcqGkV9Z",
-    "date": "08/03/2026",
-    "timestamp": 1772942291.0,
-    "category": "resultado",
-    "title": "Monsoon FC 2 x 0",
-    "subtitle": "O tubarão do litoral segue na elite",
-    "body": "Com vitória por 2 a 0 sobre o Guarany de Bagé, o Monsoon FC confirmou sua permanência no Campeonato Gaúcho e encerra o quadrangular com o objetivo alcançado.\n\nUm resultado que representa o trabalho, a dedicação e a força de todos que fazem parte desse projeto.\n\nSeguimos juntos, mais fortes do que nunca.",
-    "thumbnail": "C:/Users/Gamer/OneDrive/Desktop/monsoon-fc-site/media/3847949618940829529/2026-03-08_00-58-11_UTC.jpg",
-    "thumbnail_web": "media/3847949618940829529/2026-03-08_00-58-11_UTC.jpg",
-    "local_paths": [
-      "C:/Users/Gamer/OneDrive/Desktop/monsoon-fc-site/media/3847949618940829529/2026-03-08_00-58-11_UTC.jpg"
-    ],
-    "score": {
-      "home": "2",
-      "away": "0",
-      "raw": "2 a 0"
-    },
-    "likes": 1149,
-    "instagram_url": "https://www.instagram.com/p/DVmqcqGkV9Z/",
-    "media_type": "photo"
-  },
-  {
-    "id": "3800543613936561573",
-    "shortcode": "DS-PkfeEW2l",
-    "date": "01/01/2026",
-    "timestamp": 1767290961.0,
-    "category": "noticia",
-    "title": "O litoral gaúcho merece o topo, merece a elite, e o Monsoon FC...",
-    "subtitle": "MENOS DUBAI, MAIS RIO GRANDE DO SUL",
-    "body": "Enquanto muitos buscam inspiração em terras distantes e luxos artificiais, nós olhamos para as nossas raízes. Valorizamos o que é nosso: o suor na areia, o vento no rosto e a paixão que corre nas veias de cada gaúcho. É hora de mostrar que a nossa força vem da nossa história e da nossa gente.\n\nMENOS DUBAI, MAIS RIO GRANDE DO SUL.",
-    "thumbnail": "C:/Users/Gamer/OneDrive/Desktop/monsoon-fc-site/media/3800543613936561573/2026-01-01_15-09-21_UTC.jpg",
-    "thumbnail_web": "media/3800543613936561573/2026-01-01_15-09-21_UTC.jpg",
-    "local_paths": [
-      "C:/Users/Gamer/OneDrive/Desktop/monsoon-fc-site/media/3800543613936561573/2026-01-01_15-09-21_UTC.jpg",
-      "C:/Users/Gamer/OneDrive/Desktop/monsoon-fc-site/media/3800543613936561573/2026-01-01_15-09-21_UTC.mp4"
-    ],
-    "score": null,
-    "likes": 1326,
-    "instagram_url": "https://www.instagram.com/p/DS-PkfeEW2l/",
-    "media_type": "video"
-  },
-  {
     "id": "3861611094805174063",
     "shortcode": "DWXMtS-kdcv",
     "date": "26/03/2026",
@@ -680,6 +637,29 @@
     "score": null,
     "likes": 210,
     "instagram_url": "https://www.instagram.com/p/DVoCvzOEQV_/",
+    "media_type": "photo"
+  },
+  {
+    "id": "3847949618940829529",
+    "shortcode": "DVmqcqGkV9Z",
+    "date": "08/03/2026",
+    "timestamp": 1772942291.0,
+    "category": "resultado",
+    "title": "Monsoon FC 2 x 0",
+    "subtitle": "O tubarão do litoral segue na elite",
+    "body": "Com vitória por 2 a 0 sobre o Guarany de Bagé, o Monsoon FC confirmou sua permanência no Campeonato Gaúcho e encerra o quadrangular com o objetivo alcançado.\n\nUm resultado que representa o trabalho, a dedicação e a força de todos que fazem parte desse projeto.\n\nSeguimos juntos, mais fortes do que nunca.",
+    "thumbnail": "C:/Users/Gamer/OneDrive/Desktop/monsoon-fc-site/media/3847949618940829529/2026-03-08_00-58-11_UTC.jpg",
+    "thumbnail_web": "media/3847949618940829529/2026-03-08_00-58-11_UTC.jpg",
+    "local_paths": [
+      "C:/Users/Gamer/OneDrive/Desktop/monsoon-fc-site/media/3847949618940829529/2026-03-08_00-58-11_UTC.jpg"
+    ],
+    "score": {
+      "home": "2",
+      "away": "0",
+      "raw": "2 a 0"
+    },
+    "likes": 1149,
+    "instagram_url": "https://www.instagram.com/p/DVmqcqGkV9Z/",
     "media_type": "photo"
   },
   {
@@ -3128,6 +3108,26 @@
     "likes": 288,
     "instagram_url": "https://www.instagram.com/p/DS-qymwD-mX/",
     "media_type": "photo"
+  },
+  {
+    "id": "3800543613936561573",
+    "shortcode": "DS-PkfeEW2l",
+    "date": "01/01/2026",
+    "timestamp": 1767290961.0,
+    "category": "noticia",
+    "title": "O litoral gaúcho merece o topo, merece a elite, e o Monsoon FC...",
+    "subtitle": "MENOS DUBAI, MAIS RIO GRANDE DO SUL",
+    "body": "Enquanto muitos buscam inspiração em terras distantes e luxos artificiais, nós olhamos para as nossas raízes. Valorizamos o que é nosso: o suor na areia, o vento no rosto e a paixão que corre nas veias de cada gaúcho. É hora de mostrar que a nossa força vem da nossa história e da nossa gente.\n\nMENOS DUBAI, MAIS RIO GRANDE DO SUL.",
+    "thumbnail": "C:/Users/Gamer/OneDrive/Desktop/monsoon-fc-site/media/3800543613936561573/2026-01-01_15-09-21_UTC.jpg",
+    "thumbnail_web": "media/3800543613936561573/2026-01-01_15-09-21_UTC.jpg",
+    "local_paths": [
+      "C:/Users/Gamer/OneDrive/Desktop/monsoon-fc-site/media/3800543613936561573/2026-01-01_15-09-21_UTC.jpg",
+      "C:/Users/Gamer/OneDrive/Desktop/monsoon-fc-site/media/3800543613936561573/2026-01-01_15-09-21_UTC.mp4"
+    ],
+    "score": null,
+    "likes": 1326,
+    "instagram_url": "https://www.instagram.com/p/DS-PkfeEW2l/",
+    "media_type": "video"
   },
   {
     "id": "3800082159286348631",
