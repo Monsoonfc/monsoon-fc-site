@@ -133,52 +133,69 @@ def fetch_posts(config, existing_posts):
     consecutive_existing = 0
     MEDIA_DIR.mkdir(parents=True, exist_ok=True)
 
-    for post in profile.get_posts():
-        post_dt = post.date_utc.replace(tzinfo=None)
+    try:
+        posts_iter = profile.get_posts()
+    except Exception as e:
+        err = str(e)
+        if "401" in err or "429" in err or "wait" in err.lower() or "rate" in err.lower():
+            print(f"[AVISO] Instagram bloqueou consulta de posts (rate limit). Usando dados existentes.")
+            return []
+        raise
 
-        # Limite histórico
-        if post_dt < history_since:
-            print(f"[FIM] Limite historico atingido em {post_dt.date()} -- parando.")
-            break
+    try:
+        for post in posts_iter:
+            post_dt = post.date_utc.replace(tzinfo=None)
 
-        post_ts = post_dt.timestamp()
-
-        # Pular posts já salvos (pode ter pinados no meio)
-        if str(post.mediaid) in existing_ids:
-            consecutive_existing += 1
-            print(f"[SKIP] Post {post.mediaid} ({post_dt.strftime('%d/%m/%Y')}) ja salvo.")
-            # Para depois de 5 posts seguidos ja salvos (passou dos novos)
-            if consecutive_existing >= 5:
-                print(f"[FIM] 5 posts seguidos ja salvos -- parando.")
+            # Limite histórico
+            if post_dt < history_since:
+                print(f"[FIM] Limite historico atingido em {post_dt.date()} -- parando.")
                 break
-            continue
 
-        consecutive_existing = 0  # resetar contador
+            post_ts = post_dt.timestamp()
 
-        print(f"[DL] Baixando {post.mediaid} ({post_dt.strftime('%d/%m/%Y')})")
+            # Pular posts já salvos (pode ter pinados no meio)
+            if str(post.mediaid) in existing_ids:
+                consecutive_existing += 1
+                print(f"[SKIP] Post {post.mediaid} ({post_dt.strftime('%d/%m/%Y')}) ja salvo.")
+                # Para depois de 5 posts seguidos ja salvos (passou dos novos)
+                if consecutive_existing >= 5:
+                    print(f"[FIM] 5 posts seguidos ja salvos -- parando.")
+                    break
+                continue
 
-        local_paths = download_post_media(L, post)
-        score = parse_score_from_caption(post.caption)
-        caption = post.caption or ""
+            consecutive_existing = 0  # resetar contador
 
-        post_data = {
-            "post_id": str(post.mediaid),
-            "shortcode": post.shortcode,
-            "timestamp": post_ts,
-            "date_display": post_dt.strftime("%d/%m/%Y"),
-            "caption": caption,
-            "likes": post.likes,
-            "media_type": classify_media_type(post),
-            "local_paths": local_paths,
-            "thumbnail": local_paths[0] if local_paths else None,
-            "score": score,
-            "is_result": score is not None,
-            "is_news": bool(caption and len(caption) > 80 and not score),
-            "instagram_url": f"https://www.instagram.com/p/{post.shortcode}/",
-        }
+            print(f"[DL] Baixando {post.mediaid} ({post_dt.strftime('%d/%m/%Y')})")
 
-        new_posts.append(post_data)
-        time.sleep(3)  # evita rate-limit
+            local_paths = download_post_media(L, post)
+            score = parse_score_from_caption(post.caption)
+            caption = post.caption or ""
+
+            post_data = {
+                "post_id": str(post.mediaid),
+                "shortcode": post.shortcode,
+                "timestamp": post_ts,
+                "date_display": post_dt.strftime("%d/%m/%Y"),
+                "caption": caption,
+                "likes": post.likes,
+                "media_type": classify_media_type(post),
+                "local_paths": local_paths,
+                "thumbnail": local_paths[0] if local_paths else None,
+                "score": score,
+                "is_result": score is not None,
+                "is_news": bool(caption and len(caption) > 80 and not score),
+                "instagram_url": f"https://www.instagram.com/p/{post.shortcode}/",
+            }
+
+            new_posts.append(post_data)
+            time.sleep(3)  # evita rate-limit
+
+    except Exception as e:
+        err = str(e)
+        if "401" in err or "429" in err or "wait" in err.lower() or "rate" in err.lower():
+            print(f"[AVISO] Instagram bloqueou durante coleta (rate limit). Usando {len(new_posts)} posts coletados ate agora.")
+        else:
+            raise
 
     return new_posts
 
