@@ -2,7 +2,7 @@ name: Atualizar Site Monsoon FC
 
 on:
   schedule:
-    - cron: '*/30 * * * *'  # A cada 30 minutos
+    - cron: '0 */6 * * *'  # A cada 6 horas (evita bloqueio 429 do Instagram)
   workflow_dispatch:         # Permite disparar manualmente pelo GitHub
 
 permissions:
@@ -40,7 +40,7 @@ jobs:
           INSTA_USER: ${{ secrets.INSTA_USER }}
 
       - name: Coletar posts do Instagram
-        run: timeout 300 python scripts/fetch_instagram.py || echo "Fetch falhou ou timeout, continuando com dados existentes..."
+        run: timeout 60 python scripts/fetch_instagram.py || echo "Fetch falhou ou timeout, continuando com dados existentes..."
         env:
           PYTHONUNBUFFERED: "1"
           INSTA_USER: ${{ secrets.INSTA_USER }}
