@@ -259,6 +259,14 @@
       "total_visits": 19,
       "avg_daily": 1,
       "days_tracked": 19
+    },
+    {
+      "date": "2026-06-01",
+      "period_start": "2026-05-02",
+      "period_end": "2026-06-01",
+      "total_visits": 31,
+      "avg_daily": 1,
+      "days_tracked": 31
     }
   ]
 }
