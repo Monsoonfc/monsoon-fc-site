@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --neon:#1FD07C;
+    --black:#000000;
+    --white:#FFFFFF;
+    --gray:#ECEFEC;
+    --w:1920px;
+    --h:1080px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html,body{background:#000;}
+  .stage{
+    position:relative;
+    width:var(--w);
+    height:var(--h);
+    background:#000000;
+    overflow:hidden;
+    font-family:'Manrope',sans-serif;
+    color:var(--white);
+    -webkit-font-smoothing:antialiased;
+    text-rendering:geometricPrecision;
+  }
+
+  /* deep vignette + subtle green glow */
+  .glow{
+    position:absolute;inset:0;
+    background:
+      radial-gradient(120% 90% at 88% 18%, rgba(31,208,124,0.16) 0%, rgba(31,208,124,0.05) 26%, rgba(0,0,0,0) 52%),
+      radial-gradient(120% 120% at 12% 100%, rgba(31,208,124,0.06) 0%, rgba(0,0,0,0) 45%),
+      radial-gradient(140% 120% at 50% 50%, rgba(0,0,0,0) 38%, rgba(0,0,0,0.55) 100%);
+    pointer-events:none;
+  }
+
+  /* football pitch lines, very low opacity */
+  .pitch{position:absolute;inset:0;opacity:0.10;pointer-events:none;}
+
+  /* thin corner frames */
+  .frame{position:absolute;width:74px;height:74px;pointer-events:none;}
+  .frame span{position:absolute;background:rgba(236,239,236,0.55);}
+  .frame .hbar{height:1.5px;width:100%;top:0;left:0;}
+  .frame .vbar{width:1.5px;height:100%;top:0;left:0;}
+  .frame.tr{top:64px;right:64px;}
+  .frame.tr .hbar{top:0;right:0;}
+  .frame.tr .vbar{left:auto;right:0;}
+  .frame.bl{bottom:64px;left:64px;}
+  .frame.bl .hbar{bottom:0;top:auto;}
+  .frame.bl .vbar{bottom:0;top:auto;}
+
+  /* outer hairline border */
+  .border{position:absolute;inset:40px;border:1px solid rgba(236,239,236,0.10);pointer-events:none;}
+
+  /* content */
+  .content{position:absolute;left:130px;top:0;height:100%;display:flex;flex-direction:column;justify-content:center;width:1060px;z-index:5;}
+
+  .brandrow{display:flex;align-items:center;gap:18px;margin-bottom:54px;}
+  .monogram{width:52px;height:52px;flex:0 0 52px;}
+  .wordmark{
+    font-family:'Syne',sans-serif;font-weight:800;font-size:26px;letter-spacing:1px;
+    color:var(--white);
+  }
+  .wordmark b{color:var(--neon);}
+
+  .eyebrow{
+    display:flex;align-items:center;gap:16px;
+    font-family:'Manrope',sans-serif;font-weight:600;
+    font-size:18px;letter-spacing:5.5px;text-transform:uppercase;
+    color:var(--neon);margin-bottom:34px;
+  }
+  .eyebrow .dot{width:8px;height:8px;background:var(--neon);border-radius:50%;box-shadow:0 0 14px rgba(31,208,124,0.9);}
+
+  h1{
+    font-family:'Syne',sans-serif;font-weight:800;
+    font-size:128px;line-height:0.92;letter-spacing:-2.5px;
+    text-transform:uppercase;color:var(--white);
+    margin-bottom:38px;
+  }
+  h1 .accent{color:var(--neon);}
+
+  .lead{
+    font-family:'Manrope',sans-serif;font-weight:300;
+    font-size:27px;line-height:1.5;color:var(--gray);
+    max-width:660px;margin-bottom:58px;
+  }
+  .lead strong{font-weight:600;color:var(--white);}
+
+  .pills{display:flex;gap:14px;}
+  .pill{
+    font-family:'Manrope',sans-serif;font-weight:500;font-size:16px;
+    letter-spacing:0.5px;color:var(--gray);
+    border:1px solid rgba(236,239,236,0.22);
+    padding:13px 26px;border-radius:40px;
+  }
+  .pill.solid{background:var(--neon);color:#04140C;border-color:var(--neon);font-weight:600;}
+
+  /* footer line */
+  .footer{
+    position:absolute;left:130px;bottom:72px;z-index:5;
+    display:flex;align-items:center;gap:18px;
+    font-family:'Manrope',sans-serif;font-weight:500;font-size:15px;
+    letter-spacing:3px;text-transform:uppercase;color:rgba(236,239,236,0.55);
+  }
+  .footer .bar{width:46px;height:1.5px;background:var(--neon);}
+
+  /* network mesh panel on the right ("rede") */
+  .network{
+    position:absolute;right:0;top:0;height:100%;width:900px;z-index:2;
+    -webkit-mask-image:linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 38%, rgba(0,0,0,1) 88%, rgba(0,0,0,0.7) 100%);
+            mask-image:linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 38%, rgba(0,0,0,1) 88%, rgba(0,0,0,0.7) 100%);
+  }
+  .network svg{position:absolute;inset:0;width:100%;height:100%;}
+
+  /* big ghost monogram watermark */
+  .ghost{
+    position:absolute;right:-60px;top:50%;transform:translateY(-50%);
+    font-family:'Syne',sans-serif;font-weight:800;font-size:760px;line-height:1;
+    color:rgba(31,208,124,0.05);z-index:1;letter-spacing:-30px;pointer-events:none;
+  }
+</style>
+</head>
+<body>
+<div class="stage">
+
+  <!-- pitch lines -->
+  <svg class="pitch" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice" fill="none">
+    <g stroke="#1FD07C" stroke-width="1.4">
+      <!-- halfway line -->
+      <line x1="960" y1="40" x2="960" y2="1040"/>
+      <!-- centre circle -->
+      <circle cx="960" cy="540" r="180"/>
+      <circle cx="960" cy="540" r="4" fill="#1FD07C" stroke="none"/>
+      <!-- left penalty box -->
+      <rect x="40" y="300" width="230" height="480"/>
+      <rect x="40" y="420" width="95" height="240"/>
+      <path d="M270 420 A 150 150 0 0 1 270 660"/>
+      <!-- right penalty box -->
+      <rect x="1650" y="300" width="230" height="480"/>
+      <rect x="1745" y="420" width="95" height="240"/>
+      <path d="M1650 420 A 150 150 0 0 0 1650 660"/>
+      <!-- outer touchline -->
+      <rect x="40" y="40" width="1840" height="1000"/>
+    </g>
+  </svg>
+
+  <div class="ghost">P</div>
+
+  <!-- network mesh: the "rede" of athletes, clubs & scouts -->
+  <div class="network">
+    <svg viewBox="0 0 900 1080" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <radialGradient id="nodeGlow" cx="50%" cy="50%" r="50%">
+          <stop offset="0" stop-color="#1FD07C" stop-opacity="0.55"/>
+          <stop offset="1" stop-color="#1FD07C" stop-opacity="0"/>
+        </radialGradient>
+        <filter id="soft" x="-60%" y="-60%" width="220%" height="220%">
+          <feGaussianBlur stdDeviation="6"/>
+        </filter>
+      </defs>
+
+      <!-- edges -->
+      <g stroke="#1FD07C" fill="none" stroke-linecap="round">
+        <g stroke-opacity="0.16" stroke-width="1.2">
+          <line x1="620" y1="150" x2="760" y2="92"/>
+          <line x1="760" y1="92" x2="838" y2="262"/>
+          <line x1="838" y1="262" x2="700" y2="300"/>
+          <line x1="700" y1="300" x2="620" y2="150"/>
+          <line x1="700" y1="300" x2="560" y2="360"/>
+          <line x1="560" y1="360" x2="540" y2="470"/>
+          <line x1="540" y1="470" x2="660" y2="470"/>
+          <line x1="660" y1="470" x2="700" y2="300"/>
+          <line x1="660" y1="470" x2="800" y2="430"/>
+          <line x1="800" y1="430" x2="838" y2="262"/>
+          <line x1="660" y1="470" x2="720" y2="600"/>
+          <line x1="720" y1="600" x2="840" y2="560"/>
+          <line x1="540" y1="470" x2="560" y2="620"/>
+          <line x1="560" y1="620" x2="720" y2="600"/>
+          <line x1="560" y1="620" x2="600" y2="780"/>
+          <line x1="600" y1="780" x2="700" y2="720"/>
+          <line x1="700" y1="720" x2="720" y2="600"/>
+          <line x1="700" y1="720" x2="800" y2="820"/>
+          <line x1="600" y1="780" x2="660" y2="910"/>
+          <line x1="660" y1="910" x2="800" y2="820"/>
+          <line x1="838" y1="262" x2="868" y2="380"/>
+          <line x1="868" y1="380" x2="800" y2="430"/>
+        </g>
+        <!-- a few highlighted connections -->
+        <g stroke-opacity="0.5" stroke-width="1.6">
+          <line x1="760" y1="92" x2="700" y2="300"/>
+          <line x1="700" y1="300" x2="660" y2="470"/>
+          <line x1="660" y1="470" x2="720" y2="600"/>
+          <line x1="720" y1="600" x2="700" y2="720"/>
+        </g>
+      </g>
+
+      <!-- glow halos behind accent nodes -->
+      <g>
+        <circle cx="760" cy="92"  r="46" fill="url(#nodeGlow)"/>
+        <circle cx="700" cy="300" r="50" fill="url(#nodeGlow)"/>
+        <circle cx="660" cy="470" r="46" fill="url(#nodeGlow)"/>
+        <circle cx="720" cy="600" r="44" fill="url(#nodeGlow)"/>
+        <circle cx="800" cy="820" r="44" fill="url(#nodeGlow)"/>
+      </g>
+
+      <!-- plain nodes -->
+      <g fill="#ECEFEC">
+        <circle cx="620" cy="150" r="4" opacity="0.7"/>
+        <circle cx="838" cy="262" r="4" opacity="0.7"/>
+        <circle cx="560" cy="360" r="3.5" opacity="0.6"/>
+        <circle cx="540" cy="470" r="4" opacity="0.7"/>
+        <circle cx="800" cy="430" r="3.5" opacity="0.6"/>
+        <circle cx="868" cy="380" r="3" opacity="0.5"/>
+        <circle cx="840" cy="560" r="3.5" opacity="0.6"/>
+        <circle cx="560" cy="620" r="4" opacity="0.7"/>
+        <circle cx="600" cy="780" r="4" opacity="0.7"/>
+        <circle cx="700" cy="720" r="4" opacity="0.7"/>
+        <circle cx="660" cy="910" r="3.5" opacity="0.6"/>
+      </g>
+
+      <!-- accent profile nodes (avatars in the network) -->
+      <g>
+        <g transform="translate(760,92)" class="avatar"></g>
+      </g>
+      <g fill="none" stroke="#1FD07C" stroke-width="2">
+        <circle cx="760" cy="92"  r="16" fill="#04140C"/>
+        <circle cx="700" cy="300" r="20" fill="#04140C"/>
+        <circle cx="660" cy="470" r="16" fill="#04140C"/>
+        <circle cx="720" cy="600" r="15" fill="#04140C"/>
+        <circle cx="800" cy="820" r="15" fill="#04140C"/>
+      </g>
+      <!-- tiny person glyphs inside the avatar nodes -->
+      <g fill="#1FD07C">
+        <g transform="translate(760,92)"><circle cx="0" cy="-4" r="4"/><path d="M-7 8 C-7 0 7 0 7 8 Z"/></g>
+        <g transform="translate(700,300) scale(1.25)"><circle cx="0" cy="-4" r="4"/><path d="M-7 8 C-7 0 7 0 7 8 Z"/></g>
+        <g transform="translate(660,470)"><circle cx="0" cy="-4" r="4"/><path d="M-7 8 C-7 0 7 0 7 8 Z"/></g>
+        <g transform="translate(720,600) scale(0.95)"><circle cx="0" cy="-4" r="4"/><path d="M-7 8 C-7 0 7 0 7 8 Z"/></g>
+        <g transform="translate(800,820) scale(0.95)"><circle cx="0" cy="-4" r="4"/><path d="M-7 8 C-7 0 7 0 7 8 Z"/></g>
+      </g>
+    </svg>
+  </div>
+
+  <div class="glow"></div>
+  <div class="border"></div>
+
+  <!-- corner frames -->
+  <div class="frame tr"><span class="hbar"></span><span class="vbar"></span></div>
+  <div class="frame bl"><span class="hbar"></span><span class="vbar"></span></div>
+
+  <!-- content -->
+  <div class="content">
+    <div class="brandrow">
+      <svg class="monogram" viewBox="0 0 52 52" fill="none">
+        <rect x="1" y="1" width="50" height="50" rx="12" stroke="#1FD07C" stroke-width="1.6"/>
+        <path d="M14 14 L24 27 L24 38" stroke="#1FD07C" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M34 14 L24 27" stroke="#1FD07C" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M31 21 L31 30 L40 30 C44 30 44 21 40 21 Z" fill="#1FD07C"/>
+      </svg>
+      <div class="wordmark">You<b>Pro</b></div>
+    </div>
+
+    <div class="eyebrow"><span class="dot"></span>A rede do futebol profissional</div>
+
+    <h1>Seu jogo,<br>sua <span class="accent">carreira</span>.</h1>
+
+    <p class="lead">A rede social que conecta <strong>atletas, clubes e olheiros</strong> num só lugar. Construa seu perfil, exiba seus melhores lances e seja descoberto pelo futebol que importa.</p>
+
+    <div class="pills">
+      <div class="pill solid">Comece agora</div>
+      <div class="pill">Atletas</div>
+      <div class="pill">Clubes</div>
+      <div class="pill">Olheiros</div>
+    </div>
+  </div>
+
+  <div class="footer"><span class="bar"></span>youpro · onde o talento encontra a oportunidade</div>
+
+</div>
+</body>
+</html>
