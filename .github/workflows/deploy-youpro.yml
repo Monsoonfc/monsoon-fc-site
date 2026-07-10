@@ -1,0 +1,36 @@
+name: Publicar Site YouPro
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'youpro/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  deploy-youpro:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repositório
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Incluir site YouPro no output
+        run: |
+          mkdir -p output/youpro
+          cp -r youpro/. output/youpro/
+
+      - name: Deploy no GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./output
+          publish_branch: gh-pages
+          commit_message: "deploy: site YouPro ${{ github.sha }}"
