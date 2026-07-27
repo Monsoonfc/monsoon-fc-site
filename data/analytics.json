@@ -1,11 +1,6 @@
 {
   "daily": [
     {
-      "date": "2026-04-28",
-      "total_count": 139,
-      "visits_today": 1
-    },
-    {
       "date": "2026-04-29",
       "total_count": 150,
       "visits_today": 1
@@ -448,6 +443,11 @@
     {
       "date": "2026-07-26",
       "total_count": 601,
+      "visits_today": 1
+    },
+    {
+      "date": "2026-07-27",
+      "total_count": 602,
       "visits_today": 1
     }
   ],
