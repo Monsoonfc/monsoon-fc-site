@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contato — YouPro</title>
+<meta name="description" content="Fale com a YouPro. Atletas, agentes, clubes ou parceiros — entre em contato com a equipe.">
+<link rel="icon" type="image/svg+xml" href="img/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a href="index.html" class="brand">
+      <svg class="mark" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="18,88 18,46 34,46 34,70 42,70 42,12 58,12 58,54 82,54 82,88 66,88 66,66 58,66 58,88" fill="currentColor"/>
+        <rect x="34" y="46" width="8" height="8" fill="#0A0A0A"/>
+      </svg>
+      YouPro
+    </a>
+    <nav class="nav-links">
+      <a href="index.html">Início</a>
+      <a href="sobre.html">Sobre</a>
+      <a href="app.html">O App</a>
+      <a href="contato.html" class="active">Contato</a>
+    </nav>
+    <button class="nav-toggle" aria-label="Abrir menu">☰</button>
+  </div>
+</header>
+
+<section class="hero" style="min-height: 46vh;">
+  <div class="container">
+    <p class="eyebrow">Contato</p>
+    <h1 style="font-size: clamp(2.2rem, 5.5vw, 4rem);">Vamos conversar sobre o <span class="accent">futuro do futebol</span>.</h1>
+    <p class="lead">Atleta, família, comissão técnica, empresário ou clube — a equipe YouPro responde rápido.</p>
+  </div>
+</section>
+
+<section class="section-black tight">
+  <div class="container">
+    <div class="contact-grid">
+      <div>
+        <p class="eyebrow">Envie uma mensagem</p>
+        <form id="contact-form" class="mt-24">
+          <div class="form-field">
+            <label for="name">Nome</label>
+            <input type="text" id="name" name="name" required placeholder="Seu nome completo">
+          </div>
+          <div class="form-field">
+            <label for="email">E-mail</label>
+            <input type="email" id="email" name="email" required placeholder="seuemail@exemplo.com">
+          </div>
+          <div class="form-field">
+            <label for="profile">Você é</label>
+            <select id="profile" name="profile">
+              <option value="Atleta / Família">Atleta / Família</option>
+              <option value="Comissão técnica">Comissão técnica</option>
+              <option value="Empresário de futebol">Empresário de futebol</option>
+              <option value="Clube">Clube</option>
+              <option value="Parceiro / Imprensa">Parceiro / Imprensa</option>
+              <option value="Outro">Outro</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label for="message">Mensagem</label>
+            <textarea id="message" name="message" rows="5" required placeholder="Conte um pouco sobre o motivo do contato"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Enviar mensagem</button>
+        </form>
+      </div>
+
+      <div>
+        <p class="eyebrow">Informações</p>
+        <div class="mt-24">
+          <div class="contact-info-item">
+            <span class="label">E-mail</span>
+            <span class="value">contato@youpro.app</span>
+          </div>
+          <div class="contact-info-item">
+            <span class="label">Localização</span>
+            <span class="value">Rio Grande do Sul, Brasil</span>
+          </div>
+          <div class="contact-info-item">
+            <span class="label">Horário de atendimento</span>
+            <span class="value">Seg. a Sex., 9h às 18h</span>
+          </div>
+        </div>
+        <p class="eyebrow mt-40">Redes sociais</p>
+        <div class="social-row">
+          <a href="#" aria-label="Instagram">IG</a>
+          <a href="#" aria-label="TikTok">TT</a>
+          <a href="#" aria-label="YouTube">YT</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-top">
+      <div>
+        <a href="index.html" class="brand">
+          <svg class="mark" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <polygon points="18,88 18,46 34,46 34,70 42,70 42,12 58,12 58,54 82,54 82,88 66,88 66,66 58,66 58,88" fill="currentColor"/>
+            <rect x="34" y="46" width="8" height="8" fill="#0A0A0A"/>
+          </svg>
+          YouPro
+        </a>
+        <p class="mt-16" style="max-width: 32ch; color: rgba(221,229,237,0.6); font-size: 0.9rem;">You Run. You Play. You Move. You Win. You Pro.</p>
+      </div>
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h4>Navegação</h4>
+          <a href="index.html">Início</a>
+          <a href="sobre.html">Sobre</a>
+          <a href="app.html">O App</a>
+          <a href="contato.html">Contato</a>
+        </div>
+        <div class="footer-col">
+          <h4>Redes</h4>
+          <a href="#">Instagram</a>
+          <a href="#">TikTok</a>
+          <a href="#">YouTube</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 YouPro. Todos os direitos reservados.</span>
+      <span>Feito para revolucionar o futebol.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

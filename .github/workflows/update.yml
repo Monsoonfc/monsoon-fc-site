@@ -51,6 +51,11 @@ jobs:
       - name: Gerar site estático
         run: python scripts/build_site.py
 
+      - name: Incluir site YouPro no output
+        run: |
+          mkdir -p output/youpro
+          cp -r youpro/. output/youpro/
+
       - name: Coletar analytics de visitas
         run: python scripts/collect_analytics.py
 
